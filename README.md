@@ -10,3 +10,5 @@ Run:
 2. EditDist.py
 3. Linear_Ridge_Lasso.py
 4. random_forest.py
+
+https://docs.google.com/document/d/14Fo8rv1NG3aHTvstzMZcKfcYbrX3vfHuky8GwktN9do/edit
