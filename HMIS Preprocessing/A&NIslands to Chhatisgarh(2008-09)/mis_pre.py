@@ -4,7 +4,8 @@ import openpyxl
 from openpyxl.styles import Alignment
 import pandas as pd
 file=["A&NIslands", "AndhraPradeshOld", "ArunachalPradesh", "Assam", "Bihar", "Chandigarh", "Chhattisgarh"]
-year="2010-11"
+# Update Only the Year 
+year="2010-11"    
 for j in range(7):
 	filename=file[j]+year+".xlsx"
 	book= openpyxl.load_workbook(filename)
