@@ -2,6 +2,7 @@
 '''  
 Date: 02-11-2020
 @ author Aditya Jain
+Modified by Jaydeep Meda
 '''
 
 import pandas as pd;
@@ -20,15 +21,24 @@ def getPrevName(currName):
 
 def preProccessState(file, previous_year):
     df= pd.read_csv(file)
-    if previous_year != "2016-17":
+    temp = previous_year.split('-')
+    prevYear = int(temp[0])
+    column_numbers = []
+    if(prevYear == 2016):
+        column_numbers = [2,3,4,6,8,11,13,14,17,18,19,21,22,27,29,33,34,44,46,50,52,54,72,73,80,81,82,108,109,116,118,125,126,131,132,133,137,140,146,176,177,191]
+        for i in range(len(column_numbers)):
+            column_numbers[i] -= 2
+    if prevYear < 2016:
         df.drop(previous_year, axis =1, inplace = True)
         for i in range(1,162):
             dropname =  previous_year+ '.' + str(i)
-            df.drop(dropname, axis =1 , inplace = True)
-    
-    df.drop(df.columns[0], axis =1, inplace = True)
-    
-    column_numbers = [0,1,2,6,7,10,12,13,16,17,18,22,23,25,27,31,32,44,46,50,52,56,62,63,71,72,73,93,94,100,101,103,104,107,108,109,113,115,120,138,139,154]
+            df.drop(dropname, axis =1 , inplace = True)    
+        df.drop(df.columns[0], axis =1, inplace = True)
+        column_numbers = [0,1,2,6,7,10,12,13,16,17,18,22,23,25,27,31,32,44,46,50,52,56,62,63,71,72,73,93,94,100,101,103,104,107,108,109,113,115,120,138,139,154]
+    if prevYear > 2016:
+        column_numbers = [2,3,5,9,13,19,23,25,31,33,35,45,47,51,55,63,65,85,89,97,101,105,141,143,157,159,161,213,215,230,233,247,249,259,261,263,271,277,289,349,351,379]
+        for i in range(len(column_numbers)):
+            column_numbers[i] -= 1
     
     df = df[df.columns[column_numbers]]
     
@@ -51,7 +61,7 @@ for d,r,f in os.walk(mainFolder):
         print(name)
         for d1,r2,f1 in os.walk(mainFolder + '/' + name):
             for file in f1:
-                if file.endswith('.csv'):
+                if file.endswith('.csv') and '_Structured' not in file:
                     fileName = name  + '/' + file
                     arr.append(fileName)
                     print(fileName + " " + getPrevName(name))
